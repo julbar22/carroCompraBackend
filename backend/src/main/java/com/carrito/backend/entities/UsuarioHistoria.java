@@ -1,4 +1,4 @@
-package com.carrito.entities;
+package com.carrito.backend.entities;
 
 import java.sql.Timestamp;
 
@@ -25,6 +25,8 @@ public class UsuarioHistoria {
 	@JoinColumn(name="usuario_id")
 	@ManyToOne
 	private Usuario usuario;
+	
+	private Boolean vip;
 
 	public Long getId() {
 		return id;
@@ -56,6 +58,14 @@ public class UsuarioHistoria {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public Boolean getVip() {
+		return vip;
+	}
+
+	public void setVip(Boolean vip) {
+		this.vip = vip;
 	}
 	
 	

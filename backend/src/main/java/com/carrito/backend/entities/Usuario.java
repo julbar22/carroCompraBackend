@@ -1,4 +1,4 @@
-package com.carrito.entities;
+package com.carrito.backend.entities;
 
 import java.util.List;
 
@@ -24,6 +24,9 @@ public class Usuario {
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
 	private List<UsuarioHistoria> historial;
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+	private List<Compra> compras;
 
 	public Long getId() {
 		return id;
@@ -56,5 +59,15 @@ public class Usuario {
 	public void setHistorial(List<UsuarioHistoria> historial) {
 		this.historial = historial;
 	}
+
+	public List<Compra> getCompras() {
+		return compras;
+	}
+
+	public void setCompras(List<Compra> compras) {
+		this.compras = compras;
+	}
+	
+	
 
 }
