@@ -8,6 +8,8 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.carrito.backend.dto.CarroCompras;
+import com.carrito.backend.dto.TipoCarroCompras;
 import com.carrito.backend.entities.DiasPromocionales;
 import com.carrito.backend.entities.Usuario;
 import com.carrito.backend.entities.UsuarioHistoria;
@@ -29,7 +31,7 @@ public class CarritoServiceImpl implements CarritoService {
 	private DiasPromocionalesRepository diasPromocionalesRepo;
 
 	@Override
-	public String crearCarrito(String nombre, String documento, Timestamp fechaCreacion) {
+	public CarroCompras crearCarrito(String nombre, String documento, Timestamp fechaCreacion) {
 		Usuario usuario = usuarioRepo.findTop1ByDocumentoNumeroAndNombre(documento, nombre);
 		if (Objects.isNull(usuario)) {
 			createUsuario(nombre, documento);
@@ -43,16 +45,22 @@ public class CarritoServiceImpl implements CarritoService {
 		}
 	}
 
-	public String carritoPromocional() {
-		return "esVip";
+	public CarroCompras carritoPromocional() {
+		CarroCompras carro = new CarroCompras();
+		carro.setTipo(TipoCarroCompras.PROMOCIONAL);
+		return carro;
 	}
 
-	public String carritoNormal() {
-		return "esNormal";
+	public CarroCompras carritoNormal() {
+		CarroCompras carro = new CarroCompras();
+		carro.setTipo(TipoCarroCompras.NORMAL);
+		return carro;
 	}
 
-	public String carritoVIP() {
-		return "esNormal";
+	public CarroCompras carritoVIP() {
+		CarroCompras carro = new CarroCompras();
+		carro.setTipo(TipoCarroCompras.VIP);
+		return carro;
 	}
 
 	public Usuario createUsuario(String nombre, String documento) {

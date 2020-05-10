@@ -2,8 +2,10 @@ package com.carrito.backend.services;
 
 import java.sql.Timestamp;
 
+import com.carrito.backend.dto.CarroCompras;
+
 public interface CarritoService {
 
-	String crearCarrito(String user,String documento,Timestamp fechaCreacion);
+	CarroCompras crearCarrito(String user,String documento,Timestamp fechaCreacion);
 
 }
