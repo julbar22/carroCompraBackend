@@ -1,5 +1,6 @@
 package com.carrito.backend.entities;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class DiasPromocionales {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private Timestamp fecha;
+	private Date fecha;
 
 	private String descripcion;
 
@@ -33,20 +34,20 @@ public class DiasPromocionales {
 		this.id = id;
 	}
 
-	public Timestamp getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(Timestamp fecha) {
-		this.fecha = fecha;
-	}
-
 	public String getDescripcion() {
 		return descripcion;
 	}
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
 }
