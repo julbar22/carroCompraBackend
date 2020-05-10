@@ -7,9 +7,12 @@ import java.util.Date;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.carrito.backend.dto.CarroCompras;
+import com.carrito.backend.dto.RequestValorCompra;
 import com.carrito.backend.dto.TipoCarroCompras;
+import com.carrito.backend.entities.Compra;
 import com.carrito.backend.entities.DiasPromocionales;
 import com.carrito.backend.entities.Usuario;
 import com.carrito.backend.entities.UsuarioHistoria;
@@ -19,48 +22,54 @@ import com.carrito.backend.repositories.UsuarioHistoriaRepository;
 import com.carrito.backend.repositories.UsuarioRepository;
 import com.carrito.backend.services.CarritoService;
 
+@Service
 public class CarritoServiceImpl implements CarritoService {
 
 	@Autowired
 	private UsuarioRepository usuarioRepo;
 
+	@Autowired
 	private UsuarioHistoriaRepository usuarioHistoryRepo;
 
+	@Autowired
 	private ComprasRepository comprasRepository;
 
+	@Autowired
 	private DiasPromocionalesRepository diasPromocionalesRepo;
 
 	@Override
 	public CarroCompras crearCarrito(String nombre, String documento, Timestamp fechaCreacion) {
 		Usuario usuario = usuarioRepo.findTop1ByDocumentoNumeroAndNombre(documento, nombre);
 		if (Objects.isNull(usuario)) {
-			createUsuario(nombre, documento);
-			return isDiaPromocional(fechaCreacion) ? carritoPromocional() : carritoNormal();
+			usuario = createUsuario(nombre, documento);
+			return isDiaPromocional(fechaCreacion) ? crearCarrito(usuario, fechaCreacion, TipoCarroCompras.PROMOCIONAL)
+					: crearCarrito(usuario, fechaCreacion, TipoCarroCompras.NORMAL);
 		} else {
 			if (isVIP(fechaCreacion, usuario.getId())) {
-				return carritoVIP();
+				return crearCarrito(usuario, fechaCreacion, TipoCarroCompras.VIP);
 			} else {
-				return isDiaPromocional(fechaCreacion) ? carritoPromocional() : carritoNormal();
+				return isDiaPromocional(fechaCreacion)
+						? crearCarrito(usuario, fechaCreacion, TipoCarroCompras.PROMOCIONAL)
+						: crearCarrito(usuario, fechaCreacion, TipoCarroCompras.NORMAL);
 			}
 		}
 	}
 
-	public CarroCompras carritoPromocional() {
+	public CarroCompras crearCarrito(Usuario usuario, Timestamp fechaCompra, TipoCarroCompras tipoCarro) {
 		CarroCompras carro = new CarroCompras();
-		carro.setTipo(TipoCarroCompras.PROMOCIONAL);
+		carro.setTipo(tipoCarro);
+		Compra compra = saveCarrito(usuario, tipoCarro, fechaCompra);
+		carro.setIdCarrito(compra.getId());
 		return carro;
 	}
 
-	public CarroCompras carritoNormal() {
-		CarroCompras carro = new CarroCompras();
-		carro.setTipo(TipoCarroCompras.NORMAL);
-		return carro;
-	}
-
-	public CarroCompras carritoVIP() {
-		CarroCompras carro = new CarroCompras();
-		carro.setTipo(TipoCarroCompras.VIP);
-		return carro;
+	public Compra saveCarrito(Usuario usuario, TipoCarroCompras tipoCarro, Timestamp fechaCompra) {
+		Compra compra = new Compra();
+		compra.setFechaCompra(fechaCompra);
+		compra.setTipoCarro(tipoCarro);
+		compra.setUsuario(usuario);
+		compra.setValorTotal(0);
+		return comprasRepository.save(compra);
 	}
 
 	public Usuario createUsuario(String nombre, String documento) {
@@ -104,6 +113,18 @@ public class CarritoServiceImpl implements CarritoService {
 		java.sql.Date date = new java.sql.Date(fecha.getTime());
 		DiasPromocionales diaPromocion = diasPromocionalesRepo.findOneByFecha(date);
 		return Objects.isNull(diaPromocion) ? false : true;
+	}
+
+	@Override
+	public void valorCompras(RequestValorCompra requestCompra) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void guardarCompra(RequestValorCompra requestCompra) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

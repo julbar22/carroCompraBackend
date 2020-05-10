@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.carrito.backend.dto.TipoCarroCompras;
+
 @Entity
 @Table(name = "compras")
 public class Compra {
@@ -24,6 +26,8 @@ public class Compra {
 	private Timestamp fechaCompra;
 
 	private float valorTotal;
+	
+	private TipoCarroCompras tipoCarro;
 
 	@JoinColumn(name = "usuario_id")
 	@ManyToOne
@@ -70,6 +74,14 @@ public class Compra {
 
 	public void setDetalleCompra(List<DetalleCompra> detalleCompra) {
 		this.detalleCompra = detalleCompra;
+	}
+
+	public TipoCarroCompras getTipoCarro() {
+		return tipoCarro;
+	}
+
+	public void setTipoCarro(TipoCarroCompras tipoCarro) {
+		this.tipoCarro = tipoCarro;
 	}
 
 }

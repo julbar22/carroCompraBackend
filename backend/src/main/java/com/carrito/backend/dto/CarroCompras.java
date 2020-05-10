@@ -4,6 +4,7 @@ public class CarroCompras {
 
 	private TipoCarroCompras tipo;
 	private String descripcion;
+	private Long idCarrito;
 
 	public TipoCarroCompras getTipo() {
 		return tipo;
@@ -19,6 +20,14 @@ public class CarroCompras {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public Long getIdCarrito() {
+		return idCarrito;
+	}
+
+	public void setIdCarrito(Long idCarrito) {
+		this.idCarrito = idCarrito;
 	}
 
 }
