@@ -2,7 +2,7 @@ package com.carrito.backend.dto;
 
 public class ProductosComprados {
 
-	private Long idProducto;
+	private Long id;
 
 	private int cantidad;
 
@@ -14,12 +14,12 @@ public class ProductosComprados {
 		this.cantidad = cantidad;
 	}
 
-	public Long getIdProducto() {
-		return idProducto;
+	public Long getId() {
+		return id;
 	}
 
-	public void setIdProducto(Long idProducto) {
-		this.idProducto = idProducto;
+	public void setId(Long idProducto) {
+		this.id = idProducto;
 	}
 
 }

@@ -1,16 +1,21 @@
 package com.carrito.backend.services;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import com.carrito.backend.dto.CarroCompras;
 import com.carrito.backend.dto.RequestValorCompra;
+import com.carrito.backend.dto.ResponseValorTotal;
+import com.carrito.backend.dto.RespuestaGenerica;
 
 public interface CarritoService {
 
-	CarroCompras crearCarrito(String user, String documento, Timestamp fechaCreacion);
+	CarroCompras crearCarrito(String user, String documento, Date fechaCreacion);
 
-	void valorCompras(RequestValorCompra requestCompra);
+	ResponseValorTotal valorCompras(RequestValorCompra requestCompra);
 
-	void guardarCompra(RequestValorCompra requestCompra);
+	RespuestaGenerica guardarCompra(RequestValorCompra requestCompra);
+	
+	RespuestaGenerica eliminarCompra(Long idCompra);
 
 }

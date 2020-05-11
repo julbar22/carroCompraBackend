@@ -26,8 +26,6 @@ public class DetalleCompra {
 	@ManyToOne
 	private Producto producto;
 
-	private Timestamp fechaCompra;
-
 	private int cantidad;
 
 	public Long getId() {
@@ -44,14 +42,6 @@ public class DetalleCompra {
 
 	public void setCompra(Compra compra) {
 		this.compra = compra;
-	}
-
-	public Timestamp getFechaCompra() {
-		return fechaCompra;
-	}
-
-	public void setFechaCompra(Timestamp fechaCompra) {
-		this.fechaCompra = fechaCompra;
 	}
 
 	public int getCantidad() {

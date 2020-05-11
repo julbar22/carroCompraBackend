@@ -1,12 +1,13 @@
 package com.carrito.backend.dto;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class RequestInitCarro {
 
 	private String nombreUsuario;
 	private String documentoUsuario;
-	private Timestamp fechaCreacion;
+	private Date fechaCreacion;
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
@@ -24,12 +25,13 @@ public class RequestInitCarro {
 		this.documentoUsuario = documentoUsuario;
 	}
 
-	public Timestamp getFechaCreacion() {
+	public Date getFechaCreacion() {
 		return fechaCreacion;
 	}
 
-	public void setFechaCreacion(Timestamp fechaCreacion) {
+	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;
 	}
+
 
 }

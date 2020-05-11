@@ -10,6 +10,6 @@ import com.carrito.backend.entities.Compra;
 public interface ComprasRepository extends CrudRepository<Compra, Long> {
 
 	@Query("SELECT SUM(c.valorTotal) from Compra c Where c.fechaCompra >= ?1 and c.fechaCompra <= ?2")
-	float sumValorByFechas(Timestamp fechaInicio, Timestamp fechaFin);
+	Float sumValorByFechas(Timestamp fechaInicio, Timestamp fechaFin);
 
 }
